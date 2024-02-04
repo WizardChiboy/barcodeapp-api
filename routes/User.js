@@ -25,9 +25,9 @@ router.post("/register", async (req, res) => {
     });
     // Handle response here
   } catch (error) {
-    if (error.keyValue.email != null && error.code === 11000) {
+    if (error.keyValue?.email != null && error.code === 11000) {
       res.status(500).send({ message: "user with this email already exist" });
-    } else if (error.keyValue.username != null && error.code === 11000) {
+    } else if (error.keyValue?.username != null && error.code === 11000) {
       res.status(500).send({ message: "user with the username already exist" });
     } else {
       res.status(500).send({ message: error });
@@ -40,7 +40,7 @@ router.post("/login", async (req, res) => {
   try {
     const user = await User.findOne({
       // $or: [{ email: req.body.email }, { username: req.body.username }],
-      email: req.body.phone,
+      phone: req.body.phone,
     });
 
     if (!user) {
