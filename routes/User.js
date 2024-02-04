@@ -79,12 +79,12 @@ router.get("/logout", (req, res) => {
 });
 
 // Get a user
-router.get("/account/", async (req, res) => {
-  const userId = req.query.userId;
+router.get("/account/:id", async (req, res) => {
+  const id = req.query.id;
   const username = req.query.username;
   try {
-    const user = userId
-      ? await User.findById(userId)
+    const user = id
+      ? await User.findById(id)
       : await User.findOne({ username: username });
     const { password, updatedAt, ...other } = user._doc;
     res.status(200).json(other);
